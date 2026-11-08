@@ -11,7 +11,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.mycompany.dependecyinjection.Role;
 import com.mycompany.dependecyinjection.Usuario;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.TestInfo;
+import com.mycompany.dependecyinjection.Calculadora;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  *
@@ -19,24 +26,9 @@ import com.mycompany.dependecyinjection.Usuario;
  */
 public class DepTest {
     
+    Calculadora calculadora = new Calculadora();
+    
     public DepTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
     }
     
     @Test
@@ -55,7 +47,7 @@ public class DepTest {
     
     @Test
     public void CamposValidos(){
-        Usuario user = new Usuario("sffbs","eihvie%r@a1_hcdj","12424g2"); 
+        Usuario user = new Usuario("sffbs","eihvier@a1hcdj","12424g2"); 
 
         //testando o campo nome
         String regex = "^[A-Za-zA-ZÀ-ÿ ]+$"; //o nome só pode ter caracteres comuns e espaços
@@ -72,9 +64,30 @@ public class DepTest {
     }
     //também poderia fazer com duas funções de teste separadas mas preferi fazer tudo junto
 
+     @Test
+     @DisplayName("Teste de usuario")
+     public void teste(TestInfo info){
+         System.out.println("o teste se chama "+ info.getDisplayName() );
+         System.out.println("classe: "+info.getTestClass().get().getName());
+         System.out.println("Método: "+info.getTestMethod().get().getName());
+     }   
+     
+    @ParameterizedTest
+    @ValueSource(ints = {1, 5, 10, 50, 100})
+    void testarNumerosPositivos(int numero) {
+
+        assertTrue(calculadora.ehPositivo(numero));
+    }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     // @Test
     // public void hello() {}
+    
+    @ParameterizedTest
+    @EnumSource(Role.class)
+    public void testarNiveisAcesso(Role role){
+        assertNotNull(role);
+        System.out.println("Role: "+role);
+    }
 }

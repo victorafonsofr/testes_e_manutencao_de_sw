@@ -1,2 +1,4 @@
-com/mycompany/dependecyinjection/DependecyInjection.class
+com/mycompany/dependecyinjection/Role.class
 com/mycompany/dependecyinjection/Usuario.class
+com/mycompany/dependecyinjection/DependecyInjection.class
+com/mycompany/dependecyinjection/Calculadora.class
